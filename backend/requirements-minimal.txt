@@ -1,0 +1,19 @@
+# Core Flask Framework
+flask==3.0.0
+flask-cors==4.0.0
+gunicorn==21.2.0
+
+# Essential APIs & Utilities
+requests==2.31.0
+python-dotenv==1.0.0
+
+# Logging
+structlog==23.2.0
+
+# AI/Bot (if you have Gemini API key)
+google-generativeai==0.3.2
+
+# Minimal Data Processing (only if needed for your app)
+# Uncomment these if you get import errors:
+# numpy==1.24.3
+# pandas==2.0.3
