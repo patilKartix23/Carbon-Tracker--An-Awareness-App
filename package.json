@@ -1,0 +1,22 @@
+{
+  "name": "carbonsense-app",
+  "version": "2.0.0",
+  "description": "CarbonSense - ML-Powered Weather and Carbon Footprint Tracker",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && python start_dev.py",
+    "start": "npm run dev",
+    "install:all": "npm install && cd frontend && npm install && cd ..",
+    "build:frontend": "cd frontend && npm run build",
+    "preview:frontend": "cd frontend && npm run preview"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

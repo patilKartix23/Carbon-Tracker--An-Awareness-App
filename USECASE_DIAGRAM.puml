@@ -1,0 +1,151 @@
+@startuml Climate_Tracker_UseCases
+left to right direction
+skinparam packageStyle rectangle
+skinparam backgroundColor #FEFEFE
+
+title Climate Tracker Application - Use Case Diagram
+
+actor "User" as User
+actor "Admin" as Admin
+actor "Environmental\nActivist" as Activist
+
+rectangle "Climate Tracker System" {
+  
+  package "Authentication & Profile" {
+    usecase "Register Account" as UC1
+    usecase "Login" as UC2
+    usecase "View Profile" as UC3
+    usecase "Update Profile" as UC4
+    usecase "Switch Language" as UC5
+  }
+  
+  package "Carbon Tracking" {
+    usecase "Calculate Carbon\nFootprint" as UC6
+    usecase "Track Daily\nActivities" as UC7
+    usecase "View Carbon\nHistory" as UC8
+    usecase "Get Reduction\nRecommendations" as UC9
+    usecase "Set Carbon\nGoals" as UC10
+  }
+  
+  package "Climate Monitoring" {
+    usecase "View Climate\nData" as UC11
+    usecase "Check Air\nQuality" as UC12
+    usecase "Monitor Weather" as UC13
+    usecase "View Climate\nMap" as UC14
+    usecase "Get Location-Based\nAlerts" as UC15
+  }
+  
+  package "Social Features" {
+    usecase "Create\nEnvironmental Post" as UC16
+    usecase "Share Activities" as UC17
+    usecase "Like & Comment" as UC18
+    usecase "Follow Users" as UC19
+    usecase "View Social\nFeed" as UC20
+  }
+  
+  package "CCUS (Carbon Capture)" {
+    usecase "Learn About\nCCUS" as UC21
+    usecase "Run CCUS\nSimulation" as UC22
+    usecase "View Industry\nData" as UC23
+  }
+  
+  package "EcoMarket" {
+    usecase "Browse Eco\nProducts" as UC24
+    usecase "View Product\nDetails" as UC25
+    usecase "Calculate Carbon\nOffset" as UC26
+    usecase "Purchase\nSustainable Items" as UC27
+  }
+  
+  package "Advocacy" {
+    usecase "View Petitions" as UC28
+    usecase "Sign Petition" as UC29
+    usecase "Create Campaign" as UC30
+    usecase "Share Impact\nStories" as UC31
+    usecase "Track Petition\nProgress" as UC32
+  }
+  
+  package "AI Assistance" {
+    usecase "Chat with\nClimate Bot" as UC33
+    usecase "Get Personalized\nAdvice" as UC34
+    usecase "Ask Climate\nQuestions" as UC35
+  }
+}
+
+' External Systems
+actor "OpenWeatherMap\nAPI" as Weather
+actor "NASA POWER\nAPI" as NASA
+actor "Google Gemini\nAI" as Gemini
+
+' User Relationships
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
+User --> UC11
+User --> UC12
+User --> UC13
+User --> UC14
+User --> UC15
+User --> UC16
+User --> UC17
+User --> UC18
+User --> UC19
+User --> UC20
+User --> UC21
+User --> UC22
+User --> UC23
+User --> UC24
+User --> UC25
+User --> UC26
+User --> UC27
+User --> UC28
+User --> UC29
+User --> UC33
+User --> UC34
+User --> UC35
+
+' Activist Relationships
+Activist --> UC30
+Activist --> UC31
+Activist --> UC32
+
+' Admin inherits User capabilities
+Admin --|> User
+
+' System Extensions
+UC6 ..> UC9 : <<extends>>
+UC7 ..> UC8 : <<includes>>
+UC16 ..> UC17 : <<includes>>
+UC29 ..> UC32 : <<includes>>
+UC24 ..> UC26 : <<includes>>
+
+' External System Relationships
+UC11 ..> Weather : <<uses>>
+UC12 ..> Weather : <<uses>>
+UC13 ..> Weather : <<uses>>
+UC14 ..> NASA : <<uses>>
+UC33 ..> Gemini : <<uses>>
+UC34 ..> Gemini : <<uses>>
+UC35 ..> Gemini : <<uses>>
+
+note right of User
+  **5 Languages Supported:**
+  - English
+  - Hindi
+  - Kannada
+  - Tamil
+  - Telugu
+end note
+
+note bottom of "Climate Tracker System"
+  **Real-time monitoring** combined with
+  **social engagement** and **environmental action**
+end note
+
+@enduml

@@ -16,9 +16,14 @@ import env_config
 from api.climate import router as climate_router
 from api.carbon import router as carbon_router
 from api.auth import router as auth_router
-from api.social import router as social_router
+# from api.social import router as social_router  # Database version
+from api.social_json import router as social_router  # JSON version (no DB required)
 from api.ml import router as ml_router
-from api.upload import router as upload_router
+# from api.upload import router as upload_router  # Temporarily disabled - requires cloudinary
+# from api.advocacy import router as advocacy_router  # Database version
+from api.advocacy_json import router as advocacy_router  # JSON version (no DB required)
+from api.ccus import router as ccus_router
+from api.eco_market import router as eco_market_router
 
 # Import database
 from database.connection import init_db, close_db
@@ -113,10 +118,27 @@ app.include_router(
     tags=["Machine Learning"]
 )
 
+# app.include_router(
+#     upload_router,
+#     prefix="/api/v1/upload",
+#     tags=["File Upload"]
+# )
+
 app.include_router(
-    upload_router,
-    prefix="/api/v1/upload",
-    tags=["File Upload"]
+    advocacy_router,
+    tags=["Advocacy"]
+)
+
+app.include_router(
+    ccus_router,
+    prefix="/api/ccus",
+    tags=["CCUS - Carbon Capture"]
+)
+
+app.include_router(
+    eco_market_router,
+    prefix="/api/eco-shopping",
+    tags=["EcoMarket - Sustainable Shopping"]
 )
 
 @app.get("/")
@@ -134,7 +156,9 @@ async def root():
             "auth": "/api/v1/auth",
             "social": "/api/v1/social",
             "ml": "/api/v1/ml",
-            "upload": "/api/v1/upload"
+            "advocacy": "/api/v1/advocacy",
+            "ccus": "/api/ccus",
+            "eco-shopping": "/api/eco-shopping"
         }
     }
 
@@ -163,7 +187,8 @@ async def not_found_handler(request, exc):
                 "/api/v1/auth",
                 "/api/v1/social",
                 "/api/v1/ml",
-                "/api/v1/upload"
+                "/api/ccus",
+                "/api/eco-shopping"
             ]
         }
     )

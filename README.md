@@ -1,6 +1,7 @@
-# 🌍 Climate Tracker Application v2.0
+# 🌍 CarbonSense Application v2.0
+### An ML-Powered Weather and Carbon Footprint Tracker
 
-A comprehensive climate monitoring and carbon footprint tracking application that provides real-time climate data, AI-powered insights, and social features for environmental awareness and action.
+A comprehensive climate monitoring and carbon footprint tracking application that provides real-time climate data, ML-powered insights, and social features for environmental awareness and action.
 
 ## 🌟 Features
 

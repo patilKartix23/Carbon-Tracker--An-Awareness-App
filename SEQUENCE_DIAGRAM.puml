@@ -1,0 +1,88 @@
+@startuml Carbon_Tracking_Sequence
+skinparam sequenceMessageAlign center
+skinparam backgroundColor #FEFEFE
+autonumber
+
+title Carbon Tracking Flow - Sequence Diagram
+
+actor User
+participant "Frontend\n(React)" as Frontend
+participant "API Gateway\n(FastAPI)" as Gateway
+participant "Carbon Router" as Router
+participant "Carbon Calculator\nService" as Calculator
+participant "Carbon Activity\nService" as Activity
+database "Database/JSON" as DB
+
+== User Submits Carbon Activity ==
+User -> Frontend: Enter activity data\n(transport, energy, food)
+activate Frontend
+
+Frontend -> Frontend: Validate input data
+Frontend -> Gateway: POST /api/v1/carbon/calculate
+activate Gateway
+
+Gateway -> Router: Route to carbon endpoint
+activate Router
+
+Router -> Router: Authenticate user
+Router -> Calculator: Calculate emissions
+activate Calculator
+
+Calculator -> Calculator: Apply emission factors\n- Transport: vehicle type, distance\n- Energy: kWh usage\n- Food: consumption patterns
+
+Calculator --> Router: Return carbon footprint\n(CO2e in kg)
+deactivate Calculator
+
+Router -> Activity: Save activity record
+activate Activity
+
+Activity -> DB: Store carbon data
+activate DB
+DB --> Activity: Confirm saved
+deactivate DB
+
+Activity --> Router: Activity saved
+deactivate Activity
+
+Router --> Gateway: Return results
+deactivate Router
+
+Gateway --> Frontend: Response:\n- Total CO2e\n- Breakdown by category\n- Recommendations
+deactivate Gateway
+
+Frontend -> Frontend: Update dashboard
+Frontend -> User: Display results\n- Carbon footprint\n- Comparison to average\n- Reduction tips
+deactivate Frontend
+
+== View Carbon History ==
+User -> Frontend: View carbon history
+activate Frontend
+
+Frontend -> Gateway: GET /api/v1/carbon/history
+activate Gateway
+
+Gateway -> Router: Route request
+activate Router
+
+Router -> Activity: Get user activities
+activate Activity
+
+Activity -> DB: Query historical data
+activate DB
+DB --> Activity: Return records
+deactivate DB
+
+Activity --> Router: Activities list
+deactivate Activity
+
+Router --> Gateway: Historical data
+deactivate Router
+
+Gateway --> Frontend: Carbon timeline
+deactivate Gateway
+
+Frontend -> Frontend: Render charts & graphs
+Frontend -> User: Show carbon trends\n- Daily/Weekly/Monthly\n- Category breakdown\n- Progress toward goals
+deactivate Frontend
+
+@enduml

@@ -1,0 +1,104 @@
+@startuml Climate_Tracker_Architecture_Compact
+skinparam componentStyle rectangle
+skinparam backgroundColor #FEFEFE
+skinparam component {
+  BackgroundColor<<Frontend>> #E3F2FD
+  BackgroundColor<<Backend>> #FFF3E0
+  BackgroundColor<<Database>> #F3E5F5
+  BackgroundColor<<External>> #E8F5E9
+  BorderColor #424242
+  FontSize 10
+}
+skinparam packageStyle rectangle
+skinparam nodesep 30
+skinparam ranksep 30
+
+title Climate Tracker - System Architecture (v2.0.0)
+
+package "Frontend (React + TypeScript)" <<Frontend>> {
+  [Dashboard]
+  [Carbon Tracker]
+  [Climate Map]
+  [Social Feed]
+  [Advocacy]
+  [CCUS]
+  [EcoMarket]
+  [Auth Pages]
+  [Chatbot]
+}
+
+package "Backend (FastAPI)" <<Backend>> {
+  component "API Gateway" as Gateway
+  
+  package "Routers" {
+    [Climate API]
+    [Carbon API]
+    [Social API]
+    [Auth API]
+    [ML API]
+    [Advocacy API]
+    [CCUS API]
+    [EcoMarket API]
+  }
+  
+  package "Services" {
+    [Carbon Calculator]
+    [Climate Bot]
+    [Data Integrator]
+    [ML Service]
+  }
+  
+  package "Storage" <<Database>> {
+    database "PostgreSQL" as DB
+    file "JSON Files" as JSON
+  }
+}
+
+package "External APIs" <<External>> {
+  cloud "NASA" as NASA
+  cloud "OpenWeather" as Weather
+  cloud "Gemini AI" as AI
+}
+
+[Dashboard] --> Gateway
+[Carbon Tracker] --> [Carbon API]
+[Climate Map] --> [Climate API]
+[Social Feed] --> [Social API]
+[Advocacy] --> [Advocacy API]
+[CCUS] --> [CCUS API]
+[EcoMarket] --> [EcoMarket API]
+[Auth Pages] --> [Auth API]
+[Chatbot] --> [Climate Bot]
+
+Gateway --> [Climate API]
+Gateway --> [Carbon API]
+Gateway --> [Social API]
+Gateway --> [Auth API]
+Gateway --> [ML API]
+Gateway --> [Advocacy API]
+Gateway --> [CCUS API]
+Gateway --> [EcoMarket API]
+
+[Climate API] --> [Data Integrator]
+[Carbon API] --> [Carbon Calculator]
+[Social API] --> JSON
+[Advocacy API] --> JSON
+[EcoMarket API] --> JSON
+[Auth API] --> DB
+[Climate Bot] --> AI
+
+[Data Integrator] --> NASA
+[Data Integrator] --> Weather
+[Climate API] --> Weather
+
+note bottom of Gateway
+  **API Gateway Pattern**
+  Centralized routing | CORS | Logging
+end note
+
+note right of JSON
+  **JSON Storage**
+  Social posts | Advocacy | Products
+end note
+
+@enduml

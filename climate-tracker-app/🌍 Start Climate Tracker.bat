@@ -1,12 +1,31 @@
 @echo off
 title Climate Tracker - One-Click Launcher
 color 0A
+chcp 65001 >nul 2>&1
+
+:: Get the directory where this script is located
+cd /d "%~dp0"
 
 echo.
 echo ========================================
 echo      🌍 Climate Tracker - Quick Start
 echo ========================================
 echo.
+
+:: Verify directories exist
+if not exist "backend" (
+    echo ❌ Error: backend directory not found
+    echo Please run this script from the climate-tracker-app directory
+    pause
+    exit /b 1
+)
+
+if not exist "frontend" (
+    echo ❌ Error: frontend directory not found
+    echo Please run this script from the climate-tracker-app directory
+    pause
+    exit /b 1
+)
 
 :: Start both services automatically
 echo 🚀 Starting Climate Tracker Application...
@@ -18,7 +37,7 @@ echo.
 
 :: Start backend
 echo Starting backend...
-start "Climate Tracker Backend" cmd /k "cd backend && (if not exist venv python -m venv venv) && venv\Scripts\activate && pip install -r requirements.txt >nul 2>&1 && echo ✅ Backend ready at http://localhost:8000 && echo 📖 API docs at http://localhost:8000/docs && python start_dev.py"
+start "Climate Tracker Backend" cmd /k "cd /d "%~dp0backend" && (if not exist venv python -m venv venv) && venv\Scripts\activate && pip install -r requirements.txt >nul 2>&1 && echo ✅ Backend ready at http://localhost:8000 && echo 📖 API docs at http://localhost:8000/docs && python start_dev.py"
 
 :: Wait a moment for backend
 echo Waiting for backend to initialize...
@@ -26,7 +45,7 @@ timeout /t 5 /nobreak > nul
 
 :: Start frontend
 echo Starting frontend...
-start "Climate Tracker Frontend" cmd /k "cd frontend && npm install >nul 2>&1 && echo ✅ Frontend ready at http://localhost:3000 && npm run dev"
+start "Climate Tracker Frontend" cmd /k "cd /d "%~dp0frontend" && npm install >nul 2>&1 && echo ✅ Frontend ready at http://localhost:3000 && npm run dev"
 
 :: Wait a moment
 timeout /t 3 /nobreak > nul

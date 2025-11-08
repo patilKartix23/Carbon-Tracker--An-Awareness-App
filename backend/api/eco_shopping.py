@@ -7,8 +7,22 @@ import json
 from datetime import datetime, timedelta
 import uuid
 import numpy as np
+import os
+from pathlib import Path
 
 eco_shopping_bp = Blueprint('eco_shopping', __name__)
+
+# Load products from JSON file
+def load_products_from_json():
+    """Load eco-friendly products from JSON file"""
+    try:
+        json_path = Path(__file__).parent.parent / 'data' / 'eco_products.json'
+        with open(json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            return data.get('products', [])
+    except Exception as e:
+        print(f"Error loading products from JSON: {e}")
+        return []  # Return empty list if file doesn't exist yet
 
 # Sample data for demonstration
 SAMPLE_PRODUCTS = [
@@ -396,7 +410,11 @@ SAMPLE_CHALLENGES = [
 
 class EcoShoppingService:
     def __init__(self):
-        self.products = SAMPLE_PRODUCTS.copy()
+        # Load products from JSON file (15 real worldwide brands)
+        json_products = load_products_from_json()
+        # Use JSON products if available, otherwise fallback to sample
+        self.products = json_products if json_products else SAMPLE_PRODUCTS.copy()
+        print(f"[EcoMarket] Loaded {len(self.products)} products from database")
         self.eco_facts = SAMPLE_ECO_FACTS.copy()
         self.eco_tips = SAMPLE_ECO_TIPS.copy()
         self.challenges = SAMPLE_CHALLENGES.copy()

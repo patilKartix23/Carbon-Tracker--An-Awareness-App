@@ -14,16 +14,24 @@ from core.config import settings
 
 logger = structlog.get_logger()
 
-# PostgreSQL Setup
-engine = create_engine(
-    settings.postgres_url,
-    pool_pre_ping=True,
-    pool_recycle=300,
-    echo=settings.DEBUG
-)
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+# PostgreSQL Setup - wrapped in try-except for dev mode
+try:
+    engine = create_engine(
+        settings.postgres_url,
+        pool_pre_ping=True,
+        pool_recycle=300,
+        echo=settings.DEBUG
+    )
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    Base = declarative_base()
+    logger.info("Database engine created successfully")
+except Exception as e:
+    # Create a dummy engine for dev mode without database
+    logger.warning(f"Could not create database engine, using fallback: {e}")
+    from sqlalchemy import create_engine as ce
+    engine = ce("sqlite:///:memory:", echo=False)
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    Base = declarative_base()
 
 # MongoDB Setup (optional)
 mongodb_client = None
@@ -55,8 +63,8 @@ async def init_db():
             logger.warning("motor not installed; skipping MongoDB initialization")
         
     except Exception as e:
-        logger.error("Failed to initialize databases", error=str(e))
-        raise
+        logger.warning("Database not available - running without database features", error=str(e))
+        # Don't raise - allow app to start without database for CCUS and other features
 
 async def close_db():
     """Close database connections"""

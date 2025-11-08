@@ -9,13 +9,31 @@ import os
 import sys
 from pathlib import Path
 
+# Set UTF-8 encoding for Windows console
+if sys.platform == "win32":
+    try:
+        # Try to set UTF-8 encoding
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        # If that fails, we'll use ASCII-safe output
+        pass
+
 # Add the backend directory to Python path
 backend_dir = Path(__file__).parent
 sys.path.insert(0, str(backend_dir))
 
+def safe_print(text):
+    """Print text with fallback for encoding errors"""
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        # Remove emojis and special characters
+        ascii_text = text.encode('ascii', 'ignore').decode('ascii')
+        print(ascii_text)
+
 def main():
-    print("🌍 Starting Climate Tracker Backend (Development Mode)")
-    print("=" * 50)
+    safe_print("Starting Climate Tracker Backend (Development Mode)")
+    safe_print("=" * 50)
     
     # Set development environment variables if not already set
     if not os.getenv('SECRET_KEY'):
@@ -27,14 +45,14 @@ def main():
     if not os.getenv('ENVIRONMENT'):
         os.environ['ENVIRONMENT'] = 'development'
     
-    print("✅ Environment configured for development")
-    print("📡 API will be available at: http://localhost:8000")
-    print("📖 API docs will be available at: http://localhost:8000/docs")
-    print("🔧 Using mock data for external APIs (NASA, OpenWeather, etc.)")
-    print("💾 Database: Using SQLite for development (no PostgreSQL/MongoDB required)")
-    print("")
-    print("To stop the server, press Ctrl+C")
-    print("=" * 50)
+    safe_print("[OK] Environment configured for development")
+    safe_print("[API] Will be available at: http://localhost:8000")
+    safe_print("[DOCS] API docs at: http://localhost:8000/docs")
+    safe_print("[MOCK] Using mock data for external APIs (NASA, OpenWeather, etc.)")
+    safe_print("[DB] Database: Using SQLite for development (no PostgreSQL/MongoDB required)")
+    safe_print("")
+    safe_print("To stop the server, press Ctrl+C")
+    safe_print("=" * 50)
     
     try:
         uvicorn.run(
@@ -45,10 +63,10 @@ def main():
             log_level="info"
         )
     except KeyboardInterrupt:
-        print("\n🛑 Server stopped by user")
+        safe_print("\n[STOP] Server stopped by user")
     except Exception as e:
-        print(f"❌ Error starting server: {e}")
-        print("💡 Make sure you have installed requirements: pip install -r requirements.txt")
+        safe_print(f"[ERROR] Error starting server: {e}")
+        safe_print("[TIP] Make sure you have installed requirements: pip install -r requirements.txt")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,249 @@
+@startuml Climate_Tracker_Deployment
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.4.0
+!include ICONURL/common.puml
+!include ICONURL/font-awesome-5/chrome.puml
+!include ICONURL/font-awesome-5/server.puml
+!include ICONURL/font-awesome-5/database.puml
+!include ICONURL/devicons2/react.puml
+!include ICONURL/devicons2/python.puml
+
+skinparam backgroundColor #FEFEFE
+skinparam componentStyle rectangle
+
+title Climate Tracker Application - Deployment Diagram
+
+' ==================== CLIENT LAYER ====================
+node "Client Device\n(Browser)" <<device>> {
+  component "React App" as ReactApp <<Frontend>> #E3F2FD {
+    [Pages & Components]
+    [React Router]
+    [State Management]
+    [API Client (Axios)]
+  }
+  
+  component "Service Worker" as SW {
+    [Offline Support]
+    [Caching Strategy]
+  }
+}
+
+' ==================== WEB SERVER ====================
+node "Web Server" <<server>> {
+  component "Nginx/Apache" as WebServer {
+    [Static Assets]
+    [Routing]
+    [Compression]
+    [HTTPS/SSL]
+  }
+}
+
+' ==================== APPLICATION SERVER ====================
+node "Application Server" <<server>> {
+  component "ASGI Server\n(Uvicorn)" as ASGI #FFF3E0 {
+    [FastAPI Application]
+    [API Gateway]
+    [Middleware Layer]
+  }
+  
+  component "Backend Services" as Backend #FFF9C4 {
+    package "API Routes" {
+      [Climate API]
+      [Carbon API]
+      [Social API]
+      [Auth API]
+      [Advocacy API]
+      [CCUS API]
+      [EcoMarket API]
+      [ML API]
+    }
+    
+    package "Business Logic" {
+      [Carbon Calculator]
+      [Climate Bot]
+      [Data Integrator]
+      [ML Service]
+      [CCUS Service]
+    }
+  }
+}
+
+' ==================== DATABASE LAYER ====================
+node "Database Server" <<database>> {
+  database "PostgreSQL" as PG {
+    [User Data]
+    [Carbon Activities]
+    [Social Posts]
+    [Advocacy Data]
+  }
+  
+  database "SQLite\n(Dev/Fallback)" as SQLite {
+    [Local Data]
+  }
+}
+
+' ==================== FILE STORAGE ====================
+node "File Storage" <<storage>> {
+  folder "JSON Files" as JSONFiles {
+    file "social_posts.json"
+    file "advocacy_data.json"
+    file "products.json"
+  }
+  
+  cloud "Cloud Storage\n(Optional)" as CloudStore {
+    [User Images]
+    [Static Assets]
+  }
+}
+
+' ==================== EXTERNAL SERVICES ====================
+cloud "External APIs" <<external>> {
+  component "NASA POWER API" as NASA #E8F5E9
+  component "NOAA Climate API" as NOAA #E8F5E9
+  component "OpenWeatherMap" as OWM #E8F5E9
+  component "Air Quality API" as AQI #E8F5E9
+  component "Google Gemini AI" as Gemini #E8F5E9
+}
+
+' ==================== MONITORING & LOGGING ====================
+node "Observability" <<monitoring>> {
+  component "Logging System" as Logging {
+    [Structlog]
+    [Application Logs]
+    [Error Tracking]
+  }
+  
+  component "Monitoring" as Monitor {
+    [Health Checks]
+    [Performance Metrics]
+    [Uptime Monitoring]
+  }
+}
+
+' ==================== CONNECTIONS ====================
+
+' Client to Web Server
+ReactApp --> WebServer : HTTPS/443
+SW --> WebServer : Cache requests
+
+' Web Server to Application Server
+WebServer --> ASGI : Reverse Proxy\nHTTP/8000
+
+' Application Server Internal
+ASGI --> Backend : Route requests
+[API Gateway] --> [Climate API]
+[API Gateway] --> [Carbon API]
+[API Gateway] --> [Social API]
+[API Gateway] --> [Auth API]
+[API Gateway] --> [Advocacy API]
+
+' Backend to Database
+Backend --> PG : PostgreSQL Protocol\n5432
+Backend --> SQLite : File I/O
+[Auth API] --> PG
+[Carbon API] --> PG
+[Social API] --> PG
+
+' Backend to File Storage
+Backend --> JSONFiles : File I/O
+[Social API] --> JSONFiles
+[Advocacy API] --> JSONFiles
+[EcoMarket API] --> JSONFiles
+
+' Backend to External APIs
+[Climate API] --> NASA : HTTPS
+[Climate API] --> NOAA : HTTPS
+[Climate API] --> OWM : HTTPS
+[Climate API] --> AQI : HTTPS
+[Climate Bot] --> Gemini : HTTPS/REST
+
+' Monitoring
+Backend --> Logging : Log events
+ASGI --> Monitor : Health data
+Backend --> Monitor : Metrics
+
+' Optional Cloud Storage
+Backend ..> CloudStore : Optional\nImage upload
+
+' ==================== DEPLOYMENT NOTES ====================
+
+note right of ReactApp
+  **Frontend Stack**
+  - React 18
+  - TypeScript
+  - Tailwind CSS
+  - Vite bundler
+  - SPA architecture
+end note
+
+note top of ASGI
+  **Production Server**
+  - Uvicorn (ASGI)
+  - FastAPI framework
+  - Python 3.12+
+  - Async/await support
+  - WebSocket ready
+end note
+
+note bottom of PG
+  **Production Database**
+  - PostgreSQL 14+
+  - ACID compliance
+  - Full-text search
+  - JSON support
+  
+  **Development Fallback**
+  - SQLite for local dev
+  - No setup required
+end note
+
+note left of JSONFiles
+  **Quick Start Mode**
+  - No database setup
+  - JSON-based storage
+  - Sample data included
+  - Production: migrate to DB
+end note
+
+note right of "External APIs"
+  **API Integration**
+  - Real-time climate data
+  - AI-powered chatbot
+  - Weather & air quality
+  - Satellite imagery
+end note
+
+' ==================== DEPLOYMENT CONFIGURATIONS ====================
+
+package "Deployment Options" {
+  rectangle "Development" as Dev {
+    [Vite Dev Server :3000]
+    [FastAPI Dev :8000]
+    [SQLite Database]
+    [JSON Files]
+  }
+  
+  rectangle "Production" as Prod {
+    [Nginx :80/443]
+    [Uvicorn :8000]
+    [PostgreSQL :5432]
+    [Cloud Storage]
+  }
+  
+  rectangle "Docker Deployment" as Docker {
+    [Frontend Container]
+    [Backend Container]
+    [Database Container]
+    [Nginx Container]
+  }
+}
+
+note bottom of "Deployment Options"
+  **Environment Variables Required:**
+  - DATABASE_URL
+  - NASA_API_KEY
+  - OPENWEATHER_API_KEY
+  - GEMINI_API_KEY
+  - JWT_SECRET
+end note
+
+@enduml

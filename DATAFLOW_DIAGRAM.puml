@@ -1,0 +1,143 @@
+@startuml Climate_Tracker_DataFlow
+!theme plain
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontSize 11
+
+title Climate Tracker Application - Data Flow Diagram (Level 0 & 1)
+
+' ==================== LEVEL 0 - CONTEXT DIAGRAM ====================
+package "Context Diagram (Level 0)" {
+  actor "User" as User0
+  
+  component "Climate Tracker\nApplication" as System0 #LightBlue
+  
+  cloud "External APIs" as ExtAPI0 {
+    [NASA]
+    [NOAA]
+    [OpenWeatherMap]
+    [Google Gemini AI]
+  }
+  
+  database "Data Storage" as DB0
+  
+  User0 --> System0 : User actions,\nCarbon data,\nSocial posts
+  System0 --> User0 : Dashboard metrics,\nClimate data,\nRecommendations
+  System0 <--> ExtAPI0 : API requests/\nClimate data
+  System0 <--> DB0 : Read/Write\nuser data
+}
+
+' ==================== LEVEL 1 - DETAILED PROCESSES ====================
+newpage
+title Climate Tracker Application - Data Flow Diagram (Level 1)
+
+actor "User" as User1
+
+' Main Processes
+rectangle "1.0\nAuthentication\nManagement" as P1 #FFE6E6
+rectangle "2.0\nCarbon\nTracking" as P2 #E6F3FF
+rectangle "3.0\nClimate\nMonitoring" as P3 #E6FFE6
+rectangle "4.0\nSocial\nPlatform" as P4 #FFF4E6
+rectangle "5.0\nAdvocacy\nSystem" as P5 #F0E6FF
+rectangle "6.0\nEcoMarket\nPlatform" as P6 #FFE6F0
+rectangle "7.0\nCCUS\nEducation" as P7 #E6FFFF
+rectangle "8.0\nAI Chatbot" as P8 #FFFAE6
+
+' Data Stores
+database "D1: User Data" as D1
+database "D2: Carbon\nActivities" as D2
+database "D3: Social\nPosts (JSON)" as D3
+database "D4: Advocacy\nData (JSON)" as D4
+database "D5: Product\nCatalog (JSON)" as D5
+database "D6: CCUS\nInformation" as D6
+
+' External Entities
+cloud "NASA POWER API" as NASA1
+cloud "OpenWeatherMap" as Weather1
+cloud "Google Gemini AI" as Gemini1
+
+' ==================== DATA FLOWS ====================
+
+' User to Processes
+User1 --> P1 : Login credentials,\nRegistration data
+User1 --> P2 : Activity data\n(transport, energy, food)
+User1 --> P3 : Location,\nClimate queries
+User1 --> P4 : Posts, photos,\nlikes, comments
+User1 --> P5 : Petition signatures,\ncampaign creation
+User1 --> P6 : Product browsing,\npurchase intent
+User1 --> P7 : CCUS simulation\nparameters
+User1 --> P8 : Questions,\nclimate queries
+
+' Processes to User
+P1 --> User1 : Auth tokens,\nprofile data
+P2 --> User1 : Carbon footprint,\nreduction tips
+P3 --> User1 : Climate data,\nweather info,\nair quality
+P4 --> User1 : Social feed,\nnotifications
+P5 --> User1 : Petition progress,\nimpact stories
+P6 --> User1 : Product listings,\ncarbon offset info
+P7 --> User1 : CCUS insights,\nsimulation results
+P8 --> User1 : AI responses,\npersonalized advice
+
+' Process to Data Store
+P1 --> D1 : Write user profile
+P1 <-- D1 : Read user credentials
+P2 --> D2 : Save carbon activities
+P2 <-- D2 : Retrieve history
+P4 <--> D3 : Read/Write posts
+P5 <--> D4 : Read/Write petitions
+P6 <--> D5 : Read products
+P7 <--> D6 : Read CCUS data
+
+' Cross-Process Communication
+P1 --> P2 : User ID,\nauthentication
+P1 --> P4 : User profile
+P1 --> P5 : User info
+P2 --> P1 : Update carbon stats
+P3 --> P2 : Location-based\nemissions factors
+
+' External API Integration
+P3 <--> NASA1 : Satellite climate data
+P3 <--> Weather1 : Real-time weather\nand air quality
+P8 <--> Gemini1 : AI conversation\nand insights
+
+' Notes
+note right of P2
+  **Carbon Calculation**
+  - Activity tracking
+  - Emission factors
+  - Historical analysis
+  - Goal tracking
+end note
+
+note bottom of P3
+  **Real-time APIs**
+  - Weather data
+  - Air quality index
+  - Temperature trends
+  - Climate predictions
+end note
+
+note left of P4
+  **Social Features**
+  - GPS-verified posts
+  - Community engagement
+  - Environmental actions
+  - Impact sharing
+end note
+
+note right of D3
+  **JSON Storage**
+  - No database setup
+  - Quick development
+  - Real coordinates
+  - Sample data included
+end note
+
+note top of P8
+  **AI-Powered**
+  - Google Gemini
+  - Natural language
+  - Personalized advice
+  - Climate education
+end note
+
+@enduml

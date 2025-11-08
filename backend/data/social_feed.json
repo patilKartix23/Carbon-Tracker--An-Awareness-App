@@ -1,0 +1,326 @@
+{
+  "users": [
+    {
+      "id": "user-kartiek",
+      "name": "Kartiek Patil",
+      "username": "kartiekpatil",
+      "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+      "bio": "Climate activist & environmental engineer | Planting trees for a greener tomorrow 🌱",
+      "location": "Rajanukunte, Karnataka, India",
+      "followers_count": 1247,
+      "following_count": 583,
+      "posts_count": 45,
+      "carbon_saved_kg": 2340,
+      "trees_planted": 127,
+      "joined_date": "2024-01-15"
+    },
+    {
+      "id": "user-vikas",
+      "name": "Vikas HS",
+      "username": "vikashs",
+      "avatar_url": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=150",
+      "bio": "Urban forester | Building green cities one tree at a time 🌳",
+      "location": "Bangalore, Karnataka, India",
+      "followers_count": 892,
+      "following_count": 421,
+      "posts_count": 38,
+      "carbon_saved_kg": 1890,
+      "trees_planted": 95,
+      "joined_date": "2024-02-20"
+    },
+    {
+      "id": "user-pavan",
+      "name": "Pavan Tej",
+      "username": "pavantej",
+      "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150",
+      "bio": "Water conservation advocate | Rainwater harvesting specialist 💧",
+      "location": "Rajanukunte, Karnataka, India",
+      "followers_count": 1056,
+      "following_count": 634,
+      "posts_count": 52,
+      "carbon_saved_kg": 2180,
+      "trees_planted": 108,
+      "joined_date": "2024-01-28"
+    },
+    {
+      "id": "user-harish",
+      "name": "Harish Budial",
+      "username": "harishbudial",
+      "avatar_url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=150",
+      "bio": "Sustainable agriculture enthusiast | Organic farming advocate 🌾",
+      "location": "Mysuru, Karnataka, India",
+      "followers_count": 734,
+      "following_count": 389,
+      "posts_count": 31,
+      "carbon_saved_kg": 1560,
+      "trees_planted": 73,
+      "joined_date": "2024-03-05"
+    }
+  ],
+  "posts": [
+    {
+      "id": "post-1",
+      "author_id": "user-kartiek",
+      "author": {
+        "name": "Kartiek Patil",
+        "username": "kartiekpatil",
+        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150"
+      },
+      "caption": "Proud moment! 🌳 Our team successfully planted 50+ saplings today at 5H84+3P, Rajanukunte. Working together to nurture these young trees into a thriving forest. Every sapling is a promise for cleaner air and a cooler climate. Team effort makes the dream work! 💪🌱 #TreePlantation #ClimateAction #TeamWork #RajanukunteGreen",
+      "image_url": "/images/team/tree-planting-team.jpg",
+      "location_name": "5H84+3P, Rajanukunte, Karnataka 560064, India",
+      "latitude": 13.166015,
+      "longitude": 77.557363,
+      "created_at": "2024-02-28T12:38:00Z",
+      "likes_count": 247,
+      "comments_count": 34,
+      "is_public": true,
+      "tags": ["tree-planting", "climate-action", "karnataka", "community", "teamwork"],
+      "environmental_impact": {
+        "trees_planted": 52,
+        "carbon_offset_kg": 780,
+        "area_covered_sqm": 2100,
+        "team_members": 4
+      }
+    },
+    {
+      "id": "post-2",
+      "author_id": "user-pavan",
+      "author": {
+        "name": "Pavan Tej",
+        "username": "pavantej",
+        "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150"
+      },
+      "caption": "Rainwater Harvesting Unit #4 installed and operational at 5H99+QH9, Rajanukunte! 💧 This concrete structure can collect and store up to 10,000 liters during monsoon season. Completed the installation today at 6:49 PM. Every drop counts in our fight against water scarcity. Join the conservation movement! 🌧️💚 #RainwaterHarvesting #WaterConservation #SustainableLiving #ZeroWaste",
+      "image_url": "/images/team/rainwater-harvesting-pavan.jpg",
+      "location_name": "5H99+QH9, Rajanukunte, Karnataka 560064, India",
+      "latitude": 13.169455,
+      "longitude": 77.55915,
+      "created_at": "2024-02-28T13:19:00Z",
+      "likes_count": 312,
+      "comments_count": 45,
+      "is_public": true,
+      "tags": ["rainwater-harvesting", "water-conservation", "sustainability", "infrastructure"],
+      "environmental_impact": {
+        "water_saved_liters": 10000,
+        "households_benefited": 25,
+        "annual_savings_liters": 120000,
+        "installation_units": 4
+      }
+    },
+    {
+      "id": "post-3",
+      "author_id": "user-vikas",
+      "author": {
+        "name": "Vikas HS",
+        "username": "vikashs",
+        "avatar_url": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=150"
+      },
+      "caption": "Urban forest update 🌲 Our Miyawaki forest in Bangalore has grown to 15 feet in just 18 months! This dense native forest is now home to 30+ bird species and absorbs 50kg CO2 daily. Proof that nature bounces back when given a chance. #UrbanForest #Miyawaki #BangaloreGreen",
+      "image_url": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800",
+      "location_name": "Bangalore, Karnataka, India",
+      "latitude": 12.9716,
+      "longitude": 77.5946,
+      "created_at": "2024-10-25T09:30:00Z",
+      "likes_count": 428,
+      "comments_count": 67,
+      "is_public": true,
+      "tags": ["urban-forest", "miyawaki", "bangalore", "biodiversity"],
+      "environmental_impact": {
+        "forest_area_sqm": 2500,
+        "co2_absorbed_daily_kg": 50,
+        "bird_species": 30,
+        "trees_count": 300
+      }
+    },
+    {
+      "id": "post-4",
+      "author_id": "user-harish",
+      "author": {
+        "name": "Harish Budial",
+        "username": "harishbudial",
+        "avatar_url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=150"
+      },
+      "caption": "Harvest season at our organic farm! 🌾 Zero pesticides, 100% natural. Our sustainable farming methods have increased soil carbon by 40% and water retention by 60%. Proud to grow food that heals both people and planet. #OrganicFarming #SustainableAgriculture #Mysuru",
+      "image_url": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800",
+      "location_name": "Mysuru, Karnataka, India",
+      "latitude": 12.2958,
+      "longitude": 76.6394,
+      "created_at": "2024-10-24T07:15:00Z",
+      "likes_count": 356,
+      "comments_count": 52,
+      "is_public": true,
+      "tags": ["organic-farming", "sustainable-agriculture", "soil-health"],
+      "environmental_impact": {
+        "organic_land_acres": 5,
+        "soil_carbon_increase_percent": 40,
+        "chemical_pesticides_avoided_kg": 200,
+        "families_fed": 50
+      }
+    },
+    {
+      "id": "post-5",
+      "author_id": "user-kartiek",
+      "author": {
+        "name": "Kartiek Patil",
+        "username": "kartiekpatil",
+        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150"
+      },
+      "caption": "Solar panel installation complete at community center! ☀️ 10kW system will generate 15,000 units annually, saving ₹1.2L on electricity bills and offsetting 12 tons of CO2 every year. Clean energy is the future! #SolarPower #RenewableEnergy #CleanEnergy",
+      "image_url": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800",
+      "location_name": "Rajanukunte, Karnataka, India",
+      "latitude": 13.166015,
+      "longitude": 77.557363,
+      "created_at": "2024-10-23T14:45:00Z",
+      "likes_count": 289,
+      "comments_count": 41,
+      "is_public": true,
+      "tags": ["solar-power", "renewable-energy", "community"],
+      "environmental_impact": {
+        "solar_capacity_kw": 10,
+        "annual_generation_kwh": 15000,
+        "co2_offset_tons_year": 12,
+        "cost_savings_annual": 120000
+      }
+    },
+    {
+      "id": "post-6",
+      "author_id": "user-pavan",
+      "author": {
+        "name": "Pavan Tej",
+        "username": "pavantej",
+        "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150"
+      },
+      "caption": "Lake cleanup drive success! 🌊 Removed 2 tons of plastic waste from our local lake today with 100+ volunteers. Clean water is everyone's right. Let's keep our water bodies plastic-free! #LakeCleanup #PlasticFree #WaterConservation #VolunteerWork",
+      "image_url": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800",
+      "location_name": "Bangalore, Karnataka, India",
+      "latitude": 12.9716,
+      "longitude": 77.5946,
+      "created_at": "2024-10-22T08:00:00Z",
+      "likes_count": 523,
+      "comments_count": 89,
+      "is_public": true,
+      "tags": ["lake-cleanup", "plastic-free", "volunteers", "bangalore"],
+      "environmental_impact": {
+        "plastic_waste_removed_kg": 2000,
+        "volunteers": 100,
+        "lake_area_cleaned_sqm": 5000,
+        "aquatic_life_protected": true
+      }
+    },
+    {
+      "id": "post-7",
+      "author_id": "user-vikas",
+      "author": {
+        "name": "Vikas HS",
+        "username": "vikashs",
+        "avatar_url": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=150"
+      },
+      "caption": "Vertical garden project at apartment complex complete! 🌿 600 plants on just 100 sq ft of wall space. Reduces building temperature by 5°C, produces oxygen, and looks stunning. Urban living can be green! #VerticalGarden #UrbanGardening #GreenWalls",
+      "image_url": "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=800",
+      "location_name": "Bangalore, Karnataka, India",
+      "latitude": 12.9716,
+      "longitude": 77.5946,
+      "created_at": "2024-10-21T16:30:00Z",
+      "likes_count": 401,
+      "comments_count": 58,
+      "is_public": true,
+      "tags": ["vertical-garden", "urban-gardening", "bangalore", "green-walls"],
+      "environmental_impact": {
+        "plants_count": 600,
+        "wall_area_sqft": 100,
+        "temperature_reduction_celsius": 5,
+        "oxygen_production_daily_kg": 2
+      }
+    },
+    {
+      "id": "post-8",
+      "author_id": "user-harish",
+      "author": {
+        "name": "Harish Budial",
+        "username": "harishbudial",
+        "avatar_url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=150"
+      },
+      "caption": "Composting workshop success! 🌱 Taught 50 families how to convert kitchen waste into nutrient-rich compost. We can divert 70% of household waste from landfills just by composting. Small changes, big impact! #Composting #ZeroWaste #CircularEconomy",
+      "image_url": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800",
+      "location_name": "Mysuru, Karnataka, India",
+      "latitude": 12.2958,
+      "longitude": 76.6394,
+      "created_at": "2024-10-20T10:00:00Z",
+      "likes_count": 278,
+      "comments_count": 44,
+      "is_public": true,
+      "tags": ["composting", "zero-waste", "circular-economy", "workshop"],
+      "environmental_impact": {
+        "families_trained": 50,
+        "waste_diverted_percent": 70,
+        "compost_production_monthly_kg": 500,
+        "landfill_burden_reduced": true
+      }
+    },
+    {
+      "id": "post-9",
+      "author_id": "user-harish",
+      "author": {
+        "name": "Harish Budial",
+        "username": "harishbudial",
+        "avatar_url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=150"
+      },
+      "caption": "Organic farming land preparation complete! 🌾 Our team at 5H84+VM8, Rajanukunte worked together to prepare 2 acres of land for organic vegetable farming. No chemical fertilizers, pure natural methods. Special thanks to our experienced farmer guide for teaching us traditional techniques. Building sustainable food systems one field at a time! 👨‍🌾💚 #OrganicFarming #SustainableAgriculture #TeamWork #FoodSecurity",
+      "image_url": "/images/team/organic-farming-team.jpg",
+      "location_name": "5H84+VM8, Rajanukunte, Karnataka 560064, India",
+      "latitude": 13.166188,
+      "longitude": 77.557667,
+      "created_at": "2024-02-28T12:45:00Z",
+      "likes_count": 398,
+      "comments_count": 51,
+      "is_public": true,
+      "tags": ["organic-farming", "sustainable-agriculture", "team-work", "rajanukunte", "food-security"],
+      "environmental_impact": {
+        "organic_land_acres": 2,
+        "team_members": 6,
+        "chemical_pesticides_avoided_kg": 150,
+        "soil_health_improved": true,
+        "traditional_methods_preserved": true
+      }
+    }
+  ],
+  "comments": [
+    {
+      "id": "comment-1",
+      "post_id": "post-1",
+      "author_id": "user-pavan",
+      "author": {
+        "name": "Pavan Tej",
+        "username": "pavantej"
+      },
+      "content": "Amazing work! Those trees will make such a difference. Count me in for the next plantation drive! 🌳",
+      "created_at": "2024-02-28T13:15:00Z",
+      "likes_count": 12
+    },
+    {
+      "id": "comment-2",
+      "post_id": "post-1",
+      "author_id": "user-vikas",
+      "author": {
+        "name": "Vikas HS",
+        "username": "vikashs"
+      },
+      "content": "Great initiative! Make sure to maintain them well for the first 2 years. That's crucial for survival rate.",
+      "created_at": "2024-02-28T14:30:00Z",
+      "likes_count": 8
+    },
+    {
+      "id": "comment-3",
+      "post_id": "post-2",
+      "author_id": "user-harish",
+      "author": {
+        "name": "Harish Budial",
+        "username": "harishbudial"
+      },
+      "content": "This is brilliant! Can you share the design specs? We want to implement this in our village too.",
+      "created_at": "2024-02-28T12:00:00Z",
+      "likes_count": 15
+    }
+  ]
+}

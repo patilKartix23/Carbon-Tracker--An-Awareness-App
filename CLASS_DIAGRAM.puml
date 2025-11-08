@@ -1,0 +1,356 @@
+@startuml Climate_Tracker_Classes
+skinparam classAttributeIconSize 0
+skinparam backgroundColor #FEFEFE
+
+title Climate Tracker Application - Class Diagram (Core Models)
+
+' ==================== USER & AUTHENTICATION ====================
+package "User Management" {
+  class User {
+    - id: int
+    - username: string
+    - email: string
+    - password_hash: string
+    - full_name: string
+    - location: string
+    - created_at: datetime
+    - last_login: datetime
+    - language_preference: string
+    --
+    + register()
+    + login()
+    + update_profile()
+    + change_password()
+    + get_stats()
+  }
+  
+  class UserProfile {
+    - user_id: int
+    - avatar_url: string
+    - bio: string
+    - total_carbon_saved: float
+    - trees_planted: int
+    - water_conserved: int
+    - achievements: List
+    --
+    + update_stats()
+    + get_impact_metrics()
+    + calculate_level()
+  }
+}
+
+' ==================== CARBON TRACKING ====================
+package "Carbon Management" {
+  class CarbonActivity {
+    - id: int
+    - user_id: int
+    - activity_type: string
+    - category: string
+    - amount: float
+    - unit: string
+    - carbon_emission: float
+    - date: datetime
+    - location: string
+    --
+    + calculate_emissions()
+    + save()
+    + get_by_user()
+  }
+  
+  class CarbonCalculator {
+    - emission_factors: Dict
+    - transport_factors: Dict
+    - energy_factors: Dict
+    - food_factors: Dict
+    --
+    + calculate_transport(type, distance)
+    + calculate_energy(kwh, source)
+    + calculate_food(type, amount)
+    + get_recommendations()
+    + compare_to_average()
+  }
+  
+  class CarbonGoal {
+    - id: int
+    - user_id: int
+    - target_reduction: float
+    - start_date: date
+    - end_date: date
+    - current_progress: float
+    - is_achieved: bool
+    --
+    + update_progress()
+    + check_achievement()
+    + get_remaining()
+  }
+}
+
+' ==================== CLIMATE DATA ====================
+package "Climate Monitoring" {
+  class ClimateData {
+    - location: string
+    - temperature: float
+    - humidity: float
+    - pressure: float
+    - wind_speed: float
+    - timestamp: datetime
+    - source: string
+    --
+    + fetch_current()
+    + get_forecast()
+    + get_historical()
+  }
+  
+  class AirQuality {
+    - location: string
+    - aqi: int
+    - pm25: float
+    - pm10: float
+    - co2: float
+    - timestamp: datetime
+    --
+    + get_current_aqi()
+    + get_health_advice()
+    + check_alerts()
+  }
+  
+  class DataIntegrator {
+    - nasa_api: NASAClient
+    - noaa_api: NOAAClient
+    - openweather_api: OpenWeatherClient
+    --
+    + fetch_satellite_data()
+    + fetch_weather_data()
+    + fetch_air_quality()
+    + aggregate_data()
+  }
+}
+
+' ==================== SOCIAL FEATURES ====================
+package "Social Platform" {
+  class SocialPost {
+    - id: int
+    - user_id: int
+    - content: string
+    - image_url: string
+    - location: GPS
+    - latitude: float
+    - longitude: float
+    - activity_type: string
+    - impact_metrics: Dict
+    - likes_count: int
+    - comments_count: int
+    - created_at: datetime
+    --
+    + create()
+    + like()
+    + add_comment()
+    + share()
+    + get_feed()
+  }
+  
+  class Comment {
+    - id: int
+    - post_id: int
+    - user_id: int
+    - content: string
+    - created_at: datetime
+    --
+    + create()
+    + delete()
+    + edit()
+  }
+  
+  class Like {
+    - id: int
+    - post_id: int
+    - user_id: int
+    - created_at: datetime
+    --
+    + add()
+    + remove()
+  }
+}
+
+' ==================== ADVOCACY ====================
+package "Advocacy System" {
+  class Petition {
+    - id: int
+    - title: string
+    - description: string
+    - creator_id: int
+    - target_signatures: int
+    - current_signatures: int
+    - category: string
+    - status: string
+    - created_at: datetime
+    - deadline: datetime
+    --
+    + create()
+    + sign()
+    + get_progress()
+    + share()
+  }
+  
+  class ImpactStory {
+    - id: int
+    - user_id: int
+    - title: string
+    - content: string
+    - images: List
+    - metrics: Dict
+    - created_at: datetime
+    --
+    + create()
+    + publish()
+    + get_stories()
+  }
+}
+
+' ==================== ECOMARKET ====================
+package "EcoMarket" {
+  class Product {
+    - id: int
+    - name: string
+    - description: string
+    - price: float
+    - category: string
+    - carbon_offset: float
+    - eco_score: int
+    - image_url: string
+    - stock: int
+    --
+    + get_details()
+    + calculate_offset()
+    + check_availability()
+  }
+  
+  class Order {
+    - id: int
+    - user_id: int
+    - products: List[Product]
+    - total_amount: float
+    - total_carbon_offset: float
+    - status: string
+    - created_at: datetime
+    --
+    + create()
+    + calculate_total()
+    + process_payment()
+  }
+}
+
+' ==================== CCUS ====================
+package "CCUS Education" {
+  class CCUSSimulation {
+    - industry_type: string
+    - capture_rate: float
+    - storage_capacity: float
+    - cost_per_ton: float
+    - annual_emissions: float
+    --
+    + run_simulation()
+    + calculate_savings()
+    + generate_report()
+  }
+  
+  class CCUSResource {
+    - id: int
+    - title: string
+    - content: string
+    - resource_type: string
+    - industry: string
+    --
+    + get_resources()
+    + filter_by_industry()
+  }
+}
+
+' ==================== AI SERVICES ====================
+package "AI Services" {
+  class ClimateBot {
+    - gemini_api: GeminiClient
+    - conversation_history: List
+    - user_id: int
+    --
+    + send_message(query)
+    + get_response()
+    + get_climate_advice()
+    + analyze_user_data()
+  }
+  
+  class MLService {
+    - models: Dict
+    --
+    + predict_emissions()
+    + recommend_actions()
+    + analyze_patterns()
+    + generate_insights()
+  }
+}
+
+' ==================== RELATIONSHIPS ====================
+
+' User relationships
+User "1" -- "1" UserProfile : has
+User "1" -- "*" CarbonActivity : tracks
+User "1" -- "*" CarbonGoal : sets
+User "1" -- "*" SocialPost : creates
+User "1" -- "*" Petition : signs
+User "1" -- "*" Order : places
+
+' Carbon tracking relationships
+CarbonActivity "*" -- "1" CarbonCalculator : uses
+User "1" -- "*" CarbonGoal : has
+
+' Social relationships
+SocialPost "1" -- "*" Comment : has
+SocialPost "1" -- "*" Like : receives
+User "1" -- "*" Comment : writes
+User "1" -- "*" Like : gives
+
+' Climate data relationships
+DataIntegrator "1" -- "*" ClimateData : fetches
+DataIntegrator "1" -- "*" AirQuality : monitors
+
+' Advocacy relationships
+User "1" -- "*" ImpactStory : shares
+Petition "*" -- "1" User : created by
+
+' EcoMarket relationships
+Order "*" -- "*" Product : contains
+Product "1" -- "1" CarbonCalculator : calculates offset
+
+' AI relationships
+User "1" -- "1" ClimateBot : interacts with
+MLService "1" -- "*" User : analyzes
+ClimateBot "1" -- "1" User : assists
+
+' CCUS relationships
+CCUSSimulation "*" -- "1" User : runs
+CCUSResource "*" -- "*" User : views
+
+note top of User
+  **Central entity**
+  All features connected
+  to user account
+end note
+
+note right of CarbonCalculator
+  **Scientific calculations**
+  Based on established
+  emission factors
+end note
+
+note bottom of DataIntegrator
+  **API Integration**
+  NASA, NOAA, OpenWeatherMap
+end note
+
+note left of ClimateBot
+  **Google Gemini AI**
+  Natural language processing
+  Personalized responses
+end note
+
+@enduml
