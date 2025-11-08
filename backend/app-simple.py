@@ -20,9 +20,9 @@ app.config['DEBUG'] = False
 def hello():
     """Root endpoint"""
     return jsonify({
-        "message": "Climate Tracker API v2.0 - Deployed Successfully!",
+        "message": "Climate Tracker API v2.0 - Successfully Deployed on Render!",
         "status": "running",
-        "version": "2.0.0",
+        "version": "2.0.1",
         "author": "Kartik Patil",
         "endpoints": {
             "health": "/api/health",
