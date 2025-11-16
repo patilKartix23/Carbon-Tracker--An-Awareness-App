@@ -18,12 +18,13 @@ from api.carbon import router as carbon_router
 from api.auth import router as auth_router
 # from api.social import router as social_router  # Database version
 from api.social_json import router as social_router  # JSON version (no DB required)
-from api.ml import router as ml_router
+# from api.ml import router as ml_router  # Temporarily disabled - sklearn import issues
 # from api.upload import router as upload_router  # Temporarily disabled - requires cloudinary
 # from api.advocacy import router as advocacy_router  # Database version
 from api.advocacy_json import router as advocacy_router  # JSON version (no DB required)
 from api.ccus import router as ccus_router
 from api.eco_market import router as eco_market_router
+from api.firebase_api import router as firebase_router
 
 # Import database
 from database.connection import init_db, close_db
@@ -112,11 +113,11 @@ app.include_router(
     tags=["Social Features"]
 )
 
-app.include_router(
-    ml_router,
-    prefix="/api/v1/ml",
-    tags=["Machine Learning"]
-)
+# app.include_router(
+#     ml_router,
+#     prefix="/api/v1/ml",
+#     tags=["Machine Learning"]
+# )
 
 # app.include_router(
 #     upload_router,
@@ -139,6 +140,12 @@ app.include_router(
     eco_market_router,
     prefix="/api/eco-shopping",
     tags=["EcoMarket - Sustainable Shopping"]
+)
+
+app.include_router(
+    firebase_router,
+    prefix="/api/v1/firebase",
+    tags=["Firebase Services"]
 )
 
 @app.get("/")

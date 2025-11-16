@@ -1,16 +1,19 @@
 """
-Database connection management for PostgreSQL and MongoDB
+Database connection management for PostgreSQL and Firebase
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-# MongoDB client is optional in development. Import defensively.
-try:
-    from motor.motor_asyncio import AsyncIOMotorClient  # type: ignore
-except Exception:  # ModuleNotFoundError or others
-    AsyncIOMotorClient = None  # type: ignore
 import structlog
 from core.config import settings
+
+# Firebase client is optional in development
+try:
+    import firebase_admin
+    from firebase_admin import credentials, firestore
+    firebase_available = True
+except ImportError:
+    firebase_available = False
 
 logger = structlog.get_logger()
 
@@ -33,34 +36,30 @@ except Exception as e:
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     Base = declarative_base()
 
-# MongoDB Setup (optional)
-mongodb_client = None
-mongodb_db = None
+# Firebase Setup (optional)
+firebase_db = None
 
 async def init_db():
     """Initialize database connections"""
-    global mongodb_client, mongodb_db
+    global firebase_db
     
     try:
         # Create PostgreSQL/SQLite tables
         Base.metadata.create_all(bind=engine)
         logger.info("Connected to database", database=settings.postgres_url)
         
-        # Try to initialize MongoDB (optional for development)
-        if AsyncIOMotorClient is not None:
+        # Try to initialize Firebase (optional for development)
+        if firebase_available and settings.FIREBASE_CREDENTIALS_PATH:
             try:
-                mongodb_client_local = AsyncIOMotorClient(settings.MONGODB_URL)
-                # Test MongoDB connection
-                await mongodb_client_local.admin.command('ping')
-                logger.info("Connected to MongoDB", database=settings.MONGODB_DB)
-                # Assign only after successful ping
-                global mongodb_client, mongodb_db
-                mongodb_client = mongodb_client_local
-                mongodb_db = mongodb_client_local[settings.MONGODB_DB]
-            except Exception as mongo_error:
-                logger.warning("MongoDB not available, using mock storage", error=str(mongo_error))
+                if not firebase_admin._apps:
+                    cred = credentials.Certificate(settings.FIREBASE_CREDENTIALS_PATH)
+                    firebase_admin.initialize_app(cred)
+                firebase_db = firestore.client()
+                logger.info("Connected to Firebase Firestore")
+            except Exception as firebase_error:
+                logger.warning("Firebase not available, using SQLite storage", error=str(firebase_error))
         else:
-            logger.warning("motor not installed; skipping MongoDB initialization")
+            logger.warning("Firebase not configured; using SQLite only")
         
     except Exception as e:
         logger.warning("Database not available - running without database features", error=str(e))
@@ -68,11 +67,11 @@ async def init_db():
 
 async def close_db():
     """Close database connections"""
-    global mongodb_client
+    global firebase_db
     
-    if mongodb_client:
-        mongodb_client.close()
-        logger.info("Closed MongoDB connection")
+    if firebase_db:
+        # Firebase connections are managed automatically
+        logger.info("Firebase connection closed")
 
 def get_db():
     """Get PostgreSQL database session"""
@@ -82,6 +81,6 @@ def get_db():
     finally:
         db.close()
 
-def get_mongodb():
-    """Get MongoDB database instance"""
-    return mongodb_db
+def get_firestore():
+    """Get Firebase Firestore database instance"""
+    return firebase_db

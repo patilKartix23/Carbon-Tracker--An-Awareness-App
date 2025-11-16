@@ -77,9 +77,10 @@ start "Climate Tracker - Frontend" cmd /k "cd /d "%~dp0frontend" && npm install 
 
 echo.
 echo ✅ Both services are starting!
-echo 🌐 Frontend: http://localhost:3000
+echo 🌐 Frontend: Will auto-detect available port (check Frontend window)
 echo 🌐 Backend: http://localhost:8000
 echo 📖 API Docs: http://localhost:8000/docs
+echo 🏥 Health Check: http://localhost:8000/health
 echo.
 echo The applications will open in separate windows.
 echo Close those windows to stop the services.

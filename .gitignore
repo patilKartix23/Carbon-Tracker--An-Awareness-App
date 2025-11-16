@@ -49,6 +49,11 @@ frontend/build/
 *.sqlite
 *.sqlite3
 
+# Firebase
+firebase-credentials.json
+*-firebase-adminsdk-*.json
+serviceAccountKey.json
+
 # Temporary files
 *.tmp
 *.temp

@@ -45,7 +45,7 @@ timeout /t 5 /nobreak > nul
 
 :: Start frontend
 echo Starting frontend...
-start "Climate Tracker Frontend" cmd /k "cd /d "%~dp0frontend" && npm install >nul 2>&1 && echo ✅ Frontend ready at http://localhost:3000 && npm run dev"
+start "Climate Tracker Frontend" cmd /k "cd /d "%~dp0frontend" && npm install >nul 2>&1 && echo ✅ Frontend starting (will auto-detect port) && npm run dev"
 
 :: Wait a moment
 timeout /t 3 /nobreak > nul
@@ -53,20 +53,24 @@ timeout /t 3 /nobreak > nul
 echo.
 echo ✅ Climate Tracker is starting!
 echo.
-echo 🌐 Open your browser and go to:
-echo    http://localhost:3000
+echo 🌐 Frontend will open on available port:
+echo    Check the Frontend terminal window for actual URL
+echo    (Usually http://localhost:3000 or http://localhost:3001)
 echo.
 echo 📖 API Documentation:
 echo    http://localhost:8000/docs
+echo.
+echo 🏥 Backend Health Check:
+echo    http://localhost:8000/health
 echo.
 echo 💡 Tip: Keep the backend and frontend windows open
 echo    Close them when you want to stop the application
 echo.
 
-:: Try to open browser automatically
-echo Opening browser...
+:: Try to open browser automatically - start with backend docs
+echo Opening API documentation...
 timeout /t 2 /nobreak > nul
-start http://localhost:3000
+start http://localhost:8000/docs
 
 echo.
 echo 🎉 Climate Tracker is now running!
